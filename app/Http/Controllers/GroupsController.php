@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
 use DB;
 use App\groups;
+use App\group_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+
 use Auth;
 class GroupsController extends Controller
 {
@@ -37,24 +40,35 @@ class GroupsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'group_name'=>'min:4|max:70',
+            'group_name'=>'min:2|max:70',
             'objectives'=>'min:5',
             'pay_number' => 'min:12|required|regex:/(254)[0-9]{9}/',
 
             ]);
-            $creator =Auth::user()->id;
-            $group_name = $request->input('group_name');
-            $objectives = $request->input('objectives');
-            $amount = $request->input('amount');
-            $penalty = $request->input('penalty');
-            $pay_number = $request->input('pay_number');
-            $period = $request->input('period');
 
-            DB::insert('insert into groups (group_name,objectives,amount,penalty,pay_number,period_of_contibution,created_by) values(?,?,?,?,?,?,?)',
-            [$group_name,$objectives,$amount,$penalty,$pay_number,$period,$creator]);
+            $groups = new groups;
 
+            $groups->group_name = Input::get('group_name');
+            $groups->objectives = Input::get('objectives');
+            $groups->amount = Input::get('amount');
+            $groups->penalty = Input::get('penalty');
+            $groups->pay_number = Input::get('pay_number');
+            $groups->period_of_contibution = Input::get('period');
+            $groups->created_by =Auth::User()->id;
 
+            $groups->save();
+            
            
+
+            $group_members = new group_members;
+
+            // $group_members->group_name = Input::get('group_name');
+            $group_members->User_id =Auth::User()->id;
+            $group_members->group_id= $groups->id;
+            $group_members->user_level= $groups->id;
+            $group_members->save();
+            
+            
 
         return redirect('home');
     }
