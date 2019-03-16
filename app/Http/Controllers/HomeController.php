@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $id = Auth::user()->id ;
+        $data = [];
+        $data['groups']=\App\groups::all();
+        
+
+        $data['group_member']=DB::SELECT('select * FROM group_members WHERE user_id =?',[$id]);
+
+
+        return view('home',$data);
+    }
+
+
+    public function profile()
+    {
+        $id = Auth::user()->id ;
+        $data = [];
+        $data['groups']=\App\groups::all();
+        
+
+        $data['group_member']=DB::SELECT('select * FROM group_members WHERE user_id =?',[$id]);
+
+
+        return view('profile',$data);
     }
 }

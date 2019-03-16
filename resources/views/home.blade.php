@@ -1,6 +1,24 @@
 @extends('layouts.homeroot')
 
 @section('content')
+@if(Session::has('status'))
+  <div class="">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <center>{{Session::get('status')}}</center>
+
+
+        </div>
+      </div>
+    </div>
+
+    <br>
+  </div>
+@endif
+
+<!-- end session status -->
 <style type="text/css">
        body {
     margin-top:40px;
@@ -62,15 +80,15 @@
 <div class="stepwizard col-md-offset-3">
     <div class="stepwizard-row setup-panel">
       <div class="stepwizard-step">
-        <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+        <a href="#step-1" type="button" class="btn btn-primary btn-circle" style="background-color:#007C7F;">1</a>
         <p>Step 1</p>
       </div>
       <div class="stepwizard-step">
-        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled" style="background-color:#007C7F;">2</a>
         <p>Step 2</p>
       </div>
       <div class="stepwizard-step">
-        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled" style="background-color:#007C7F;">3</a>
         <p>Step 3</p>
       </div>
     </div>
@@ -92,7 +110,7 @@
             <label class="control-label">Group Objectives</label>
             <textarea required="required" class="form-control" name="objectives" placeholder="Enter your Objectives" ></textarea>
           </div>
-          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" style="background-color:#007C7F;">Next</button>
         </div>
       </div>
     </div>
@@ -115,7 +133,7 @@
             <input maxlength="200" type="number" required="required" name="penalty" class="form-control" placeholder="penalty" />
           </div>
        
-          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"style="background-color:#007C7F;" >Next</button>
         </div>
       </div>
     </div>
@@ -125,7 +143,7 @@
           <h3> Step 3</h3>
           <label class="control-label">Payment phone number</label>
             <input maxlength="200" value="{{ Auth::user()->phone}}" type="number" required="required" name="pay_number" class="form-control" placeholder="pay number" />
-          <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+          <button class="btn btn-success btn-lg pull-right" type="submit" style="background-color:#007C7F;">Submit</button>
         </div>
       </div>
     </div>

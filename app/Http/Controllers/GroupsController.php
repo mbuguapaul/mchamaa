@@ -70,7 +70,8 @@ class GroupsController extends Controller
             
             
 
-        return redirect('home');
+        return redirect('home') ->with('status','New group successfully created. You are by default the admin
+        click add to add more members');
     }
 
     /**

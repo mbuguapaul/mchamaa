@@ -154,7 +154,7 @@ body {
         </div>
         <div id="navbar" class="navbar-collapse collapse" style="background-color: #01A2A6;">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" style="color: #fff;">Dashboard</a></li>
+        
             <li><a href="#" style="color: #fff;">Settings</a></li>
             <li><li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre style="color: #fff;">
@@ -193,15 +193,25 @@ body {
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
             <li><a href="/home" style="color: #fff;">New group</a></li>
-            <li><a href="#" style="color: #fff;">Analytics</a></li>
-            <li><a href="#" style="color: #fff;">Export</a></li>
+            <li><a href="/profile" style="color: #fff;">Profile</a></li>
+            <li><a href="#" style="color: #fff;">Settings</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="" style="color: #fff;">Nav item</a></li>
-            <li><a href="" style="color: #fff;">Nav item again</a></li>
-            <li><a href="" style="color: #fff;">One more nav</a></li>
-            <li><a href="" style="color: #fff;">Another nav item</a></li>
-            <li><a href="" style="color: #fff;">More navigation</a></li>
+          
+       <hr>  
+          
+         <center><b style="color:#fff">Groups</b></center>
+          
+          @foreach($groups as $groups)
+          @foreach ($group_member as $group_members)
+          @if($group_members->group_id==$groups->id)
+          <li><a href="" style="color: #fff;">{{$groups->group_name}}</a></li>
+         @else
+         @endif
+          @endforeach
+           @endforeach
+            
+           
           </ul>
         </div>
         <div class="col-sm-12 main">

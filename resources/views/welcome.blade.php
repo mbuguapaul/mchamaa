@@ -36,7 +36,7 @@
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <a href="index.html">
-                            <img class="logo logo-dark" alt="Logo" src="img/logotype_dark.png">
+                            <img class="logo logo-dark" alt="Logo" src="img/logo.png">
                         </div>
                     </div>
                 
@@ -125,7 +125,7 @@
                 <div class="container" id="features">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>A few features that should&nbsp;make you excited</h1>
+                            <h1>Automate your&nbsp;group today</h1>
                         </div>
                     </div>
         

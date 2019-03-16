@@ -72,10 +72,12 @@
                     </ul>
                 </div>
             </div>
-        </nav>
 
+        </nav>
+        </div>
+        
         @yield('content')
-    </div>
+    
             <footer class="social bg-secondary-1">
             
                 <div class="container">
