@@ -23,7 +23,7 @@
 					    @foreach($group as $group)
 					    
 					     
-					     <a href="" > <li class="list-group-item listgroups" style="background-color:#01A2A6; color: #fff; text-decoration: none;">
+					     <a href="/" > <li class="list-group-item listgroups" style="background-color:#01A2A6; color: #fff; text-decoration: none;">
 					      {{$group->group_name}}
 					     </li> </a>
 					      
