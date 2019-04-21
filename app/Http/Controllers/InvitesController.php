@@ -89,9 +89,26 @@ class InvitesController extends Controller
      * @param  \App\invites  $invites
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, invites $invites)
+    public function linkjoin(Request $request)
     {
-        //
+
+        $token = str_random();
+         $invites = new invites;
+
+             $invites->name = Input::get('name');
+             $invites->sname = Input::get('sname');
+             $invites->invitedgroup = Input::get('groupname');
+             $invites->groupid = Input::get('groupid');
+             $invites->phne_number = Input::get('phone');
+             $invites->role = Input::get('role');
+             $invites->email = Input::get('email');
+            $invites->group_description = Input::get('description');
+            $invites->token = $token;
+             $invites->invite_by ="link";
+
+            $invites->save();
+
+            return redirect('home') ->with('status','Invitation request sent Kindly request the admin to confirm the request to allow you interact into the group');
     }
 
      public function confirm(Request $request)

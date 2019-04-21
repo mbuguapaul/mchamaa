@@ -98,40 +98,25 @@ class GatewayAPI extends Controller
 		    case Gateway\EnvayaSMS::ACTION_OUTGOING:
 		        $messages = array();
 
-//		        $dir = Storage::allFiles($this->OUTGOING_DIR_NAME);
-//
-//			   	for ($i=0; $i < count($dir) ; $i++) {
-//			   		$file = Storage::get($dir[$i]);
-//
-//		                $data = json_decode(Storage::get($dir[$i]));
-//		                if ($data)
-//		                {
-//		                    $sms = new EnvayaSMS_OutgoingMessage();
-//		                    $sms->id = $data->id;
-//		                    $sms->to = $data->to;
-//		                    $sms->message = $data->message;
-//		                    $messages[] = $sms;
-//		                }
-//			   	}
-//				$smses = Sms::where('status',0)->get();
-//		        foreach($smses as $_sms)
-//				{
-//					$sms = new Gateway\EnvayaSMS_OutgoingMessage();
-//					$sms->id = $_sms->id;
-//					$sms->to = $_sms->contact->phone_number;
-//					$sms->message = $_sms->sms_body;
-//					$sms->type = Gateway\EnvayaSMS::MESSAGE_TYPE_SMS;
-//					$sms->priority = 1;
-//					$messages[] = $sms;
-//				}
-//		        $events = array();
-//
-//		        if ($messages)
-//		        {
-//		            $events[] = new Gateway\EnvayaSMS_Event_Send($messages);
-//		        }
-//
-//		        echo $request->render_response($events);
+				$smses = Sms::where('status',0)->get();
+		        foreach($smses as $_sms)
+				{
+					$sms = new Gateway\EnvayaSMS_OutgoingMessage();
+					$sms->id = $_sms->id;
+					$sms->to = $_sms->phone_number;
+					$sms->message = $_sms->sms_body;
+					$sms->type = Gateway\EnvayaSMS::MESSAGE_TYPE_SMS;
+					$sms->priority = 1;
+					$messages[] = $sms;
+				}
+		        $events = array();
+
+		        if ($messages)
+		        {
+		            $events[] = new Gateway\EnvayaSMS_Event_Send($messages);
+		        }
+
+		        echo $request->render_response($events);
 		        return response()->json(array('events'=>null));
 		        
 		    case Gateway\EnvayaSMS::ACTION_SEND_STATUS:

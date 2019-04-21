@@ -38,6 +38,7 @@ Route::post('gs/invite', 'InvitesController@process')->name('process');
 Route::get('gs/accept/{token}', 'InvitesController@accept')->name('accept');
 
 Route::get('/allgroups', 'HomeController@allgroups');
+Route::post('joingroup', 'InvitesController@linkjoin');
 
 
 Route::post('gs/confirmmember', 'InvitesController@confirm')->name('confirm');

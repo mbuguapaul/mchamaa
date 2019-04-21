@@ -53,12 +53,15 @@ class HomeController extends Controller
      public function allgroups()
     {
         $id = Auth::user()->id ;
+        $email = Auth::user()->email ;
         $data = [];
         // $data['groups']=\App\groups::all();
         
 
-        $data['group_member']=DB::SELECT('select * FROM group_members');
+        
+        $data['group_member']=DB::SELECT('select * FROM group_members WHERE user_id =?',[$id]);
         $data['group']=DB::SELECT('select * FROM groups');
+        $data['invites']=DB::SELECT('select * FROM invites WHERE email =?',[$email]);
 
 
         return view('allgroups',$data);
