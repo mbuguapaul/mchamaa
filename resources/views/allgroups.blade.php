@@ -21,7 +21,15 @@
 					  <ul class="list-group">
 					    
 					    @foreach($group as $group)
-					    
+					    	<form action="joingroup" method="post">
+					    		{{ csrf_field() }}
+					    		<input type="hidden" name="name" value="{{ Auth::user()->name }}">	
+					    		<input type="hidden" name="sname" value="{{ Auth::user()->sname }}">	
+					    		<input type="hidden" name="groupid" value="{{$group->id}}">	
+					    	<input type="hidden" name="phone" value="{{ Auth::user()->phone }}">	<input type="hidden" name="role" value="1">
+					    	<input type="hidden" name="email" value="{{ Auth::user()->email }}">
+					    	<input type="hidden" name="description" value="{{$group->objectives}}">	
+					    	</form>
 					     
 					     <a href="/" > <li class="list-group-item listgroups" style="background-color:#01A2A6; color: #fff; text-decoration: none;">
 					      {{$group->group_name}}
