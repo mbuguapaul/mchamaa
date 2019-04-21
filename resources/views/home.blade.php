@@ -1,9 +1,45 @@
-@extends('layouts.homeroot')
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-@if(Session::has('status'))
-  <div class="">
-    <div class="row">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>e Chamaa</title>
+
+    <!-- Styles -->
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+
+     <link href="css/theme-1.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+        
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
+
+
+</head>
+<body>
+<style type="text/css">
+body{
+  background-color: #F1F3FA;
+}
+  .shadow:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
+  }
+</style>
+
+
+<br><br><br><br><br>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+      @if(Session::has('status'))
+ 
       <div class="col-md-12">
         <div class="alert alert-success">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -12,143 +48,104 @@
 
         </div>
       </div>
-    </div>
-
-    <br>
-  </div>
+    
 @endif
 
-<!-- end session status -->
-<style type="text/css">
-       body {
-    margin-top:40px;
-}
-.stepwizard-step p {
-    margin-top: 10px;
-}
-.stepwizard-row {
-    display: table-row;
-}
-.stepwizard {
-    display: table;
-    width: 50%;
-    position: relative;
-}
-.stepwizard-step button[disabled] {
-    opacity: 1 !important;
-    filter: alpha(opacity=100) !important;
-}
-.stepwizard-row:before {
-    top: 14px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
-}
-.stepwizard-step {
-    display: table-cell;
-    text-align: center;
-    position: relative;
-}
-.btn-circle {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 15px;
-}
-    </style>
-<div class="container">
-  <center><h2>Create a new group</h2></center>
-  @if(count($errors)>0)
-        <div class="alert alert-danger">
-         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h2>! Error occured, please check following conditions.</h2>
-        <ul>
-          @foreach($errors->all() as $error)
-         <li>{{$error}}</li>
 
-          @endforeach
-          </ul>
- </div>
-        @endif
-<div class="stepwizard col-md-offset-3">
-    <div class="stepwizard-row setup-panel">
-      <div class="stepwizard-step">
-        <a href="#step-1" type="button" class="btn btn-primary btn-circle" style="background-color:#007C7F;">1</a>
-        <p>Step 1</p>
-      </div>
-      <div class="stepwizard-step">
-        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled" style="background-color:#007C7F;">2</a>
-        <p>Step 2</p>
-      </div>
-      <div class="stepwizard-step">
-        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled" style="background-color:#007C7F;">3</a>
-        <p>Step 3</p>
-      </div>
-    </div>
+
+      <center><img class="logo logo-dark" style="width:25%;" alt="Logo" src="{{asset('img/logo.png')}}"></center>
+      <!-- panel begin -->
+
+      <div class="panel panel-default shadow">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><center><b><h3>Your groups</h3></b></center></div>
+  <div class="panel-body">
+   
   </div>
-  
-  <form role="form" action="newgroup" method="post">
 
-  {{ csrf_field() }}
-    <div class="row setup-content" id="step-1">
-      <div class="col-xs-6 col-md-offset-3">
-        <div class="col-md-12">
-          <h3> Step 1</h3>
-          <div class="form-group">
-            <label class="control-label">Group Name</label>
-            <input  maxlength="100" type="text" required="required" class="form-control" name="group_name" placeholder="Enter Group Name"  />
-          </div>
-          
-          <div class="form-group">
-            <label class="control-label">Group Objectives</label>
-            <textarea required="required" class="form-control" name="objectives" placeholder="Enter your Objectives" ></textarea>
-          </div>
-          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" style="background-color:#007C7F;">Next</button>
-        </div>
-      </div>
-    </div>
-    <div class="row setup-content" id="step-2">
-      <div class="col-xs-6 col-md-offset-3">
-        <div class="col-md-12">
-          <h3> Step 2</h3>
-          <div class="form-group">
-             <label class="control-label">Amount of contribution</label>
-            <input maxlength="200" type="number" required="required" class="form-control" name="amount" placeholder="Enter amount of contribution" />
-
-            <label class="control-label">Period of contributions</label>
-            <select class="form-control" name="period">
-  <option value="1">Daily</option>
-  <option value="2">Weekly</option>
-  <option value="2">Monthly</option>
-  
-</select>
-            <label class="control-label">Penalty per day</label>
-            <input maxlength="200" type="number" required="required" name="penalty" class="form-control" placeholder="penalty" />
-          </div>
-       
-          <button class="btn btn-primary nextBtn btn-lg pull-right" type="button"style="background-color:#007C7F;" >Next</button>
-        </div>
-      </div>
-    </div>
-    <div class="row setup-content" id="step-3">
-      <div class="col-xs-6 col-md-offset-3">
-        <div class="col-md-12">
-          <h3> Step 3</h3>
-          <label class="control-label">Payment phone number</label>
-            <input maxlength="200" value="{{ Auth::user()->phone}}" type="number" required="required" name="pay_number" class="form-control" placeholder="pay number" />
-          <button class="btn btn-success btn-lg pull-right" type="submit" style="background-color:#007C7F;">Submit</button>
-        </div>
-      </div>
-    </div>
-  </form>
-  
+  <!-- List group -->
+  <ul class="list-group">
+    @foreach($group_member as $groupmember)
+    @foreach($groups as $group)
+    
+      @if($groupmember->group_id==$group->id)
+     <a href="gs/{{$group->id}}" > <li class="list-group-item listgroups" style="background-color:#01A2A6; color: #fff; text-decoration: none;">
+      {{$group->group_name}}
+     </li> </a>
+      @endif
+    
+    @endforeach
+    @endforeach
+   
+     <a href="newgroup"><li class="list-group-item" style="background-color:#F26239; color: #fff; text-decoration: none;">Create a new group</li></a>
+  </ul>
 </div>
 
-@endsection
+      <!-- panel ends here -->
+      All rights reserved &copy 2019      &nbsp      <a href="/">home</a>       &nbsp &nbsp  
+      <a href="allgroups">Join a group</a> &nbsp&nbsp<a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a> &nbsp &nbsp<a href="profile"> Profile</a><br>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+
+                                        Account name: {{ Auth::user()->name }} &nbsp{{ Auth::user()->sname }}
+
+
+    </div>
+  </div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+  var navListItems = $('div.setup-panel div a'),
+          allWells = $('.setup-content'),
+          allNextBtn = $('.nextBtn');
+
+  allWells.hide();
+
+  navListItems.click(function (e) {
+      e.preventDefault();
+      var $target = $($(this).attr('href')),
+              $item = $(this);
+
+      if (!$item.hasClass('disabled')) {
+          navListItems.removeClass('btn-primary').addClass('btn-default');
+          $item.addClass('btn-primary');
+          allWells.hide();
+          $target.show();
+          $target.find('input:eq(0)').focus();
+      }
+  });
+
+  allNextBtn.click(function(){
+      var curStep = $(this).closest(".setup-content"),
+          curStepBtn = curStep.attr("id"),
+          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+          curInputs = curStep.find("input[type='text'],input[type='url']"),
+          isValid = true;
+
+      $(".form-group").removeClass("has-error");
+      for(var i=0; i<curInputs.length; i++){
+          if (!curInputs[i].validity.valid){
+              isValid = false;
+              $(curInputs[i]).closest(".form-group").addClass("has-error");
+          }
+      }
+
+      if (isValid)
+          nextStepWizard.removeAttr('disabled').trigger('click');
+  });
+
+  $('div.setup-panel div a.btn-primary').trigger('click');
+});
+</script>
+</body>
+</html>

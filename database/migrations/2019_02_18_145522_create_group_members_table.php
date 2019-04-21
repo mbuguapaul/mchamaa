@@ -18,7 +18,7 @@ class CreateGroupMembersTable extends Migration
             $table->integer('group_id');
             $table->integer('user_level')->default(0);
             $table->integer('active')->default(0);
-            $table->integer('User_id');
+            $table->integer('User_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

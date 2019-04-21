@@ -18,10 +18,10 @@ class CreateGroupsTable extends Migration
          
 // 
             $table->string('group_name');
-            $table->string('objectives');
+            $table->longText('objectives');
 
             $table->integer('amount');
-            $table->integer('penalty');
+            $table->integer('penalty')->nullable($value = true);
             $table->bigInteger('pay_number');
             $table->integer('created_by');
            $table->integer('period_of_contibution');

@@ -15,6 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verified');
     }
 
     /**
@@ -27,9 +28,7 @@ class HomeController extends Controller
         $id = Auth::user()->id ;
         $data = [];
         $data['groups']=\App\groups::all();
-        
-
-        $data['group_member']=DB::SELECT('select * FROM group_members WHERE user_id =?',[$id]);
+       $data['group_member']=DB::SELECT('select * FROM group_members WHERE user_id =?',[$id]);
 
 
         return view('home',$data);
@@ -48,4 +47,21 @@ class HomeController extends Controller
 
         return view('profile',$data);
     }
+
+    
+
+     public function allgroups()
+    {
+        $id = Auth::user()->id ;
+        $data = [];
+        // $data['groups']=\App\groups::all();
+        
+
+        $data['group_member']=DB::SELECT('select * FROM group_members');
+        $data['group']=DB::SELECT('select * FROM groups');
+
+
+        return view('allgroups',$data);
+    }
+
 }

@@ -2685,8 +2685,8 @@ iframe.mail-list-form {
   display: none !important;
 }
 footer {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 footer.social h1 {
   margin-bottom: 24px;
@@ -3336,11 +3336,11 @@ footer.short-2 .contact-action:hover {
   footer.short-2 .contact-action {
     position: relative;
     width: 100%;
-    height: 150px;
+    height: 100px;
     margin-top: 80px;
   }
   footer.short-2 .align-vertical {
-    padding-top: 64px !important;
+    padding-top: 50px !important;
   }
 }
 .resume-header {

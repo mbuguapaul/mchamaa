@@ -16,7 +16,28 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Auth::routes(['verify' => true]);
+
+
+Route::get('/newgroup', 'GroupsController@newgroup');
+Route::get('gs/{id}', 'GroupsController@groupselect');
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'HomeController@profile');
-Route::post('newgroup', 'GroupsController@store');
+
+Route::post('nwgroup', 'GroupsController@store');
+// Route::resource('nwgroup','GroupsController');
+Route::post('mnet/sms/gateway','GatewayAPI@store');
+
+Route::get('gs/invite', 'InvitesController@invite')->name('invite');
+// Route::post('gs/process', 'InvitesController@invite')->name('invite');
+Route::post('gs/invite', 'InvitesController@process')->name('process');
+// {token} is a required parameter that will be exposed to us in the controller method
+Route::get('gs/accept/{token}', 'InvitesController@accept')->name('accept');
+
+Route::get('/allgroups', 'HomeController@allgroups');
+
+
+Route::post('gs/confirmmember', 'InvitesController@confirm')->name('confirm');

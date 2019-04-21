@@ -11,12 +11,22 @@
     <title>e Chamaa</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-     <link href="css/theme-1.css" rel="stylesheet" type="text/css" media="all"/>
-        <link href="css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
+
+     <link href="{{asset('css/theme-1.css')}}" rel="stylesheet" type="text/css" media="all"/>
+        <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css" media="all"/>
+        
+        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" media="all"/>
+
+
 </head>
 <body>
-    <div id="app">
+  <style type="text/css">
+    .listgroups:hover{
+      background-color: #008285;
+    }
+  </style>
+    <div>
         <nav class="navbar navbar-default navbar-static-top" style="background-color: #01A2A6;">
             <div class="container">
                 <div class="navbar-header">
@@ -31,15 +41,15 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff;">
-                        e-chamaa
+                        M-chamaa
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                   <!--  <ul class="nav navbar-nav">
                         &nbsp;
-                    </ul>
+                    </ul> -->
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -74,17 +84,16 @@
             </div>
 
         </nav>
-        </div>
+        
         
         @yield('content')
-    
-            <footer class="social bg-secondary-1">
+     <footer class="social bg-secondary-1">
             
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             <h1 class="text-white">Feel free to contact us</h1>
-                            <a href="#" class="text-white"><strong>contact@emgraphicskenya.com</strong></a><br>
+                            <a href="#" class="text-white"><strong>contact@cEmgraphicsKenya.com</strong></a><br>
                             <ul class="social-icons">
                                 <li>
                                     <a href="#">
@@ -122,13 +131,60 @@
                                     </a>
                                 </li>
                             </ul><br>
-                            <span class="sub">© Copright 2019 Emgraphics. All Rights Reserved.</span>
+                            <span class="sub">© Copright 2019 Emgraphics. All Rights Reserved. </span>
                         </div>
                     </div>
                 </div>
             
             </footer>
+         </div>  
     <!-- Scripts -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+  var navListItems = $('div.setup-panel div a'),
+          allWells = $('.setup-content'),
+          allNextBtn = $('.nextBtn');
+
+  allWells.hide();
+
+  navListItems.click(function (e) {
+      e.preventDefault();
+      var $target = $($(this).attr('href')),
+              $item = $(this);
+
+      if (!$item.hasClass('disabled')) {
+          navListItems.removeClass('btn-primary').addClass('btn-default');
+          $item.addClass('btn-primary');
+          allWells.hide();
+          $target.show();
+          $target.find('input:eq(0)').focus();
+      }
+  });
+
+  allNextBtn.click(function(){
+      var curStep = $(this).closest(".setup-content"),
+          curStepBtn = curStep.attr("id"),
+          nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+          curInputs = curStep.find("input[type='text'],input[type='url']"),
+          isValid = true;
+
+      $(".form-group").removeClass("has-error");
+      for(var i=0; i<curInputs.length; i++){
+          if (!curInputs[i].validity.valid){
+              isValid = false;
+              $(curInputs[i]).closest(".form-group").addClass("has-error");
+          }
+      }
+
+      if (isValid)
+          nextStepWizard.removeAttr('disabled').trigger('click');
+  });
+
+  $('div.setup-panel div a.btn-primary').trigger('click');
+});
+</script>
 </body>
 </html>

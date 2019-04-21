@@ -11,6 +11,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all"/>
         <link href="css/theme-1.css" rel="stylesheet" type="text/css" media="all"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css" media="all"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <!--[if gte IE 9]>
             <link rel="stylesheet" type="text/css" href="css/ie9.css" />
         <![endif]-->
@@ -48,12 +49,23 @@
                             <ul class="menu">
                                 <a></a><li><a href="index.html" target="_self">Home</a></li>
                                 <li><a href="#features" target="_self">Features</a></li>
-                                <li><a href="contact.html" target="_self">Contact</a></li>
+                                <li><a href="#contactus" target="_self">Contact</a></li>
                                 
                              @if (Route::has('login'))
                         
                             @auth
-                                <li><a href="{{ url('/home') }}">Home</a></li>
+                                <li><a href="{{ url('/home') }}">My account</a></li>
+                                <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
                             @else
                                <li> <a href="{{ route('login') }}">Login</a></li>
                                 <li><a href="{{ route('register') }}">Register</a></li>
@@ -87,7 +99,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12 col-md-10 col-md-offset-1 text-center">
-                            <h2 class="text-white">Make your Chamaa automated and more transparent.</h2>
+                            <br><br>
+                            <h2 class="text-white">Automate your Chamaa today .</h2>
                             <p class="text-white">
                                 E-chamaa allows making moneary group communication easy and transactions are easily accounted for.
                                 See how?
@@ -97,7 +110,7 @@
                         
                             @auth
                                 
-                                <a href="{{ url('/home') }}" class="btn btn-primary btn-filled">Home</a>
+                                <a href="{{ url('/home') }}" class="btn btn-primary btn-filled">My account</a>
                             @else
                               
                                     
@@ -132,7 +145,7 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-6">
                             <div class="feature feature-icon-large">
-                                <i class="icon icon-mobile"></i>
+                                <i class="fas fa-mobile"></i>
                                 <h5>Easy communication</h5>
                                 <p>
                                     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
@@ -142,7 +155,7 @@
                     
                         <div class="col-md-3 col-sm-6">
                             <div class="feature feature-icon-large">
-                                <i class="icon icon-happy"></i>
+                               <i class="fas fa-dollar-sign"></i>
                                 <h5>Financial transparency</h5>
                                 <p>
                                     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
@@ -152,7 +165,7 @@
                     
                         <div class="col-md-3 col-sm-6">
                             <div class="feature feature-icon-large">
-                                <i class="icon icon-tools-2"></i>
+                                <i class="fas fa-address-book"></i>
                                 <h5>Mobile app</h5>
                                 <p>
                                     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
@@ -162,7 +175,7 @@
                     
                         <div class="col-md-3 col-sm-6">
                             <div class="feature feature-icon-large">
-                                <i class="icon icon-lock"></i>
+                                <i class="fas fa-users"></i>
                                 <h5>Ease of Use</h5>
                                 <p>
                                     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.
@@ -201,7 +214,7 @@
                 </div>
             </section>
             
-            <section class="pricing-2">
+            <section class="pricing-2" id="contactus">
                 
                 <div class="container">
                     <div class="row text-center">
@@ -221,7 +234,7 @@
 
                            <textarea class="form-control" placeholder="enter your message"></textarea><br>
                             <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Talk to us
                                 </button>
                        </form>
                         </div>
@@ -242,43 +255,7 @@
                         <div class="col-sm-12 text-center">
                             <h1 class="text-white">Feel free to contact us</h1>
                             <a href="#" class="text-white"><strong>contact@cEmgraphicsKenya.com</strong></a><br>
-                            <ul class="social-icons">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_twitter"></i>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_facebook"></i>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_instagram"></i>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_dribbble"></i>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_tumblr"></i>
-                                    </a>
-                                </li>
-                                
-                                <li>
-                                    <a href="#">
-                                        <i class="icon social_pinterest"></i>
-                                    </a>
-                                </li>
-                            </ul><br>
+                           <br>
                             <span class="sub">© Copright 2019 Emgraphics. All Rights Reserved. </span>
                         </div>
                     </div>
