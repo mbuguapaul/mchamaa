@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 
             $table->string('sname');
-             $table->bigInteger('phone');
+             $table->bigInteger('phone')->unique();
              $table->integer('userlevel')->default(0);
             
             $table->string('avatar')->default('default.jpg');
