@@ -58,7 +58,7 @@ class GatewayAPI extends Controller
 		        $events = array();
 		        $type = strtoupper($action->message_type);
 		        Log::info("MNET Received: {$type} from: {$action->from} message: {$action->message}");
-		        if($action->from == 'MPESA' || Str::endsWith($action->from,'+254716551010')){
+		        if($action->from == 'MPESA' || Str::endsWith($action->from,'716551010')){
 		            $parts = explode(" ", $action->message);
 		            Log::info($parts);
                     $format = [
@@ -76,7 +76,7 @@ class GatewayAPI extends Controller
                         'created_at' => Carbon::now()
                     ];
                     
-                    $message ="confirmed, $trans_amount received to Mchama account. Thank you. ";
+                    $message ="confirmed, {$format['trans_amount']} received to Mchama account. Thank you. ";
 
                     $this->helper->process($format);
 
