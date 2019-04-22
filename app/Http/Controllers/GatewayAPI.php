@@ -77,6 +77,7 @@ class GatewayAPI extends Controller
                     ];
                     
                     $message ="confirmed, {$format['trans_amount']} received to Mchama account. Thank you. ";
+                    app('App\Http\Controllers\PaymentProcessingController')->create($format['trans_amount'],$format['business_short_code'],$format['bill_ref_number']);
 
                     $this->helper->process($format);
 

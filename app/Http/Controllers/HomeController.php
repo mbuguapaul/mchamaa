@@ -23,6 +23,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    // public function callme($stop){
+    //     echo "string".$stop;
+        
+    // }
     public function index()
     {
         $id = Auth::user()->id ;

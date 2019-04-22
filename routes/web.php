@@ -22,6 +22,7 @@ Auth::routes(['verify' => true]);
 Route::get('/newgroup', 'GroupsController@newgroup');
 Route::get('gs/{id}', 'GroupsController@groupselect');
 
+// Route::get('create', 'GroupsController@create');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
