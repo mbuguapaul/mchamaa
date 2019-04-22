@@ -58,7 +58,7 @@ class GatewayAPI extends Controller
 		        $events = array();
 		        $type = strtoupper($action->message_type);
 		        Log::info("MNET Received: {$type} from: {$action->from} message: {$action->message}");
-		        if($action->from == 'MPESA' || Str::endsWith($action->from,'743169027')){
+		        if($action->from == 'MPESA' || Str::endsWith($action->from,'+254716551010')){
 		            $parts = explode(" ", $action->message);
 		            Log::info($parts);
                     $format = [
@@ -96,30 +96,30 @@ class GatewayAPI extends Controller
                 ));
 		        
 		    case Gateway\EnvayaSMS::ACTION_OUTGOING:
-		        $messages = array();
+		  //       $messages = array();
 
-				$smses = Sms::where('status',0)->get();
-		        foreach($smses as $_sms)
-				{
-					$sms = new Gateway\EnvayaSMS_OutgoingMessage();
-					$sms->id = $_sms->id;
-					$sms->to = $_sms->phone_number;
-					$sms->message = $_sms->sms_body;
-					$sms->type = Gateway\EnvayaSMS::MESSAGE_TYPE_SMS;
-					$sms->priority = 1;
-					$messages[] = $sms;
-				}
-		        $events = array();
+				// $smses = Sms::where('status',0)->get();
+		  //       foreach($smses as $_sms)
+				// {
+				// 	$sms = new Gateway\EnvayaSMS_OutgoingMessage();
+				// 	$sms->id = $_sms->id;
+				// 	$sms->to = $_sms->phone_number;
+				// 	$sms->message = $_sms->sms_body;
+				// 	$sms->type = Gateway\EnvayaSMS::MESSAGE_TYPE_SMS;
+				// 	$sms->priority = 1;
+				// 	$messages[] = $sms;
+				// }
+		  //       $events = array();
 
-		        if ($messages)
-		        {
-		            $events[] = new Gateway\EnvayaSMS_Event_Send($messages);
-		        }
+		  //       if ($messages)
+		  //       {
+		  //           $events[] = new Gateway\EnvayaSMS_Event_Send($messages);
+		  //       }
 
-		        echo $request->render_response($events);
-		        return response()->json(array('events'=>null));
+		  //       echo $request->render_response($events);
+		  //       return response()->json(array('events'=>null));
 		        
-		    case Gateway\EnvayaSMS::ACTION_SEND_STATUS:
+		  //   case Gateway\EnvayaSMS::ACTION_SEND_STATUS:
 		    
 //		        $id = $action->id;
 //
