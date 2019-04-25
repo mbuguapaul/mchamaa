@@ -20,7 +20,7 @@
         <link href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic" rel="stylesheet" type="text/css">
         <link href="css/font-helvetica.css" rel="stylesheet" type="text/css">
 
-        <title>e chamaa</title>
+        <title>m-chamaa</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -102,7 +102,7 @@
                             <br><br>
                             <h2 class="text-white">Automate your Chamaa today .</h2>
                             <p class="text-white">
-                                E-chamaa allows making moneary group communication easy and transactions are easily accounted for.
+                                M-chamaa allows making moneary group communication easy and transactions are easily accounted for.
                                 See how?
                             </p>
 
