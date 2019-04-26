@@ -48,3 +48,4 @@ Route::post('gs/confirmmember', 'InvitesController@confirm')->name('confirm');
 
 
 Route::get('gs/members/{id}', 'GroupsController@members');
+Route::get('gs/invites/{id}', 'GroupsController@invites');

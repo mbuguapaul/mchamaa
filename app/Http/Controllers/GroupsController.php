@@ -104,6 +104,7 @@ class GroupsController extends Controller
          $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
 
           $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+
         return view ('groupviews.dashboard',$data);
         }
     
@@ -151,7 +152,22 @@ class GroupsController extends Controller
 
          $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
 
-
+    $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
         return view('groupviews.members',$data);
+    }
+
+     public function invites($id)
+    {
+      $userid = Auth::user()->id;
+        $data=[];
+         $data['users']=DB::SELECT('select * FROM users');
+        $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
+        $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
+        $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
+        $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
+        $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
+
+$data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+        return view('groupviews.invites',$data);
     }
 }

@@ -100,9 +100,15 @@
           <div class="bg-white py-2 collapse-inner rounded">
            @foreach($groups as $groupm)
             
-            
+           
             <a class="collapse-item" href="members/{{$id=$groupm->id}}">Members</a>
-            <a class="collapse-item" href="register.html">Invites</a>
+             @foreach($mygroup as $mygroupm)
+            @if($mygroupm->user_level==1)
+        
+            @else
+            <a class="collapse-item" href="invites/{{$id=$mygroupm->id}}">Invites</a>
+            @endif
+            @endforeach
         @endforeach
           </div>
         </div>
@@ -187,17 +193,31 @@
                 <h6 class="dropdown-header">
                   Alerts Center
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
+
+@foreach($mygroup as $mygroupc)
+            @if($mygroupc->user_level==1)
+        
+            @else
+                @foreach($confirmed as $confirmp)
+                <a class="dropdown-item d-flex align-items-center" href="invites/{{$id=$mygroupc->id}}">
+
                   <div class="mr-3">
                     <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
+                      <i class="fas fa-user-plus text-white"></i>
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                    
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($confirmp->updated_at)->diffForHumans()}}</div>
+                    <span class="font-weight-bold">{{$confirmp->name}} {{$confirmp->sname}}
+                    accepted your invitation to this group, kindly confirm.</span>
+                   
                   </div>
                 </a>
+                
+                @endforeach
+                @endif
+                 @endforeach
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
                     <div class="icon-circle bg-success">
@@ -366,7 +386,14 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <?php $counting = 0; ?> 
+                      @foreach($logs as $amt)
+                      
+                      <?php $counting = $counting+$amt->amount;?>
+
+                   
+                    @endforeach
+                    {{$counting}}
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -396,6 +423,8 @@
           
             @else
               <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target=".bs-example-modal-lg" style="color: #fff;"><i class="fas fa-user-plus fa-sm text-white-50"></i> Invite Member</a>
+
+               <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target=".bs-example-modal-lg" style="color: #fff;"><i class="fas fa-hand-holding-usd fa-hand-holding-usd text-white-50"></i> Withdraw</a>
             
 
 
@@ -488,16 +517,26 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Incomes (Deposits)</div>
+                     
+                     <?php $counting = 0; ?> 
+                     <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      @foreach($logs as $amtr)
+                      
+                      <?php $counting = $counting+$amtr->amount;?>
+
+                   
+                    @endforeach
+                    {{$counting}}
+                     </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+        </div>
 
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
@@ -506,7 +545,9 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
+
                       <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
