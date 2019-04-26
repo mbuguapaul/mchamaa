@@ -32,14 +32,19 @@ Route::post('nwgroup', 'GroupsController@store');
 // Route::resource('nwgroup','GroupsController');
 Route::post('mnet/sms/gateway','GatewayAPI@store');
 
+
+
+Route::get('/allgroups', 'HomeController@allgroups');
+
+//invitations////////////////////////////////////////////////////////////////////
 Route::get('gs/invite', 'InvitesController@invite')->name('invite');
 // Route::post('gs/process', 'InvitesController@invite')->name('invite');
 Route::post('gs/invite', 'InvitesController@process')->name('process');
 // {token} is a required parameter that will be exposed to us in the controller method
 Route::get('gs/accept/{token}', 'InvitesController@accept')->name('accept');
-
-Route::get('/allgroups', 'HomeController@allgroups');
 Route::post('joingroup', 'InvitesController@linkjoin');
-
-
 Route::post('gs/confirmmember', 'InvitesController@confirm')->name('confirm');
+
+
+
+Route::get('gs/members/{id}', 'GroupsController@members');
