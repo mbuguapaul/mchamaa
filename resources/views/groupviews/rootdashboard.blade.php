@@ -61,9 +61,17 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+             @foreach($groups as $groupd)
+            
+           
+            
+        
+          
+            <a class="collapse-item" href="deposits/{{$id=$groupd->id}}">Deposits</a>
+           
+        @endforeach
+            
+            <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
           </div>
         </div>
       </li>
@@ -396,7 +404,7 @@
                     {{$counting}}
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
