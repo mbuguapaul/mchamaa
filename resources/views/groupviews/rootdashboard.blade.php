@@ -300,7 +300,7 @@
                 </a>
                 <a class="dropdown-item" href="/home">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Groups
+                 My Groups
                 </a>
                 <div class="dropdown-divider"></div>
                 

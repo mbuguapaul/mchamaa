@@ -257,7 +257,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -276,11 +276,16 @@
                   @foreach($logs as $log)
                     <tr>
                      <td>#</td>
-                      <td>{{$log -> name}}</td>
+                     @foreach($users as $use)
+                     @if($use->id==$log->user_id)
+                      <td>{{$use -> name}} {{$use -> sname}}</td>
+                      @endif
+                      @endforeach
                       <td>0{{$log -> phone_number}}</td>
                       <td>{{$log -> ref_no}}</td>
                       <td>{{$log -> amount}}</td>
-                      <td>{{$log -> created_at}}</td>
+
+                      <td>{{Carbon\Carbon::parse($log->created_at)->format('d-m-Y')}}</td>
                     </tr>
                     @endforeach
 
