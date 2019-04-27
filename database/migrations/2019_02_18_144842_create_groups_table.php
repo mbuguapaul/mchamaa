@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
 // 
             $table->string('group_name');
             $table->longText('objectives');
-
+            $table->integer('worth')->default(0);
             $table->integer('amount');
             $table->integer('penalty')->nullable($value = true);
             $table->bigInteger('pay_number');

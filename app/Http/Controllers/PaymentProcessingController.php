@@ -50,6 +50,21 @@ $name = DB::table('users')->select('name')->where('phone', $msisdn)->first();
 
             $payment_processing->save();
 
+            $data['thegroup']=DB::SELECT('select * FROM groups WHERE id =?',[$groups->group_id]);
+
+            foreach($data['thegroup'] as $thegroup){
+
+             $worth=$thegroup->worth;
+            
+            $thegroup=$groups->id;
+
+            $newworth=$worth + $trans_amount;
+
+            DB::table('groups')
+            ->where('id', $thegroup)
+            ->update(['worth' => $newworth]);
+            }
+
             }
 
          

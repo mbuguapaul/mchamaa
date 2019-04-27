@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\withdraws;
 use DB;
 use App\groups;
 use App\group_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Auth;
+use \Carbon\Carbon;
 class GroupsController extends Controller
 {
     /**
@@ -105,6 +107,13 @@ class GroupsController extends Controller
 
           $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
 
+          $data['withdraws']=DB::SELECT('select * FROM withdraws WHERE group_id =?',[$id]);
+
+          $timet=Carbon::now()->subMinutes(10);
+          $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
+$data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+// ->where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString())
         return view ('groupviews.dashboard',$data);
         }
     
@@ -152,22 +161,31 @@ class GroupsController extends Controller
 
          $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
 
-    $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+         $data['withdraws']=DB::SELECT('select * FROM withdraws WHERE group_id =?',[$id]);
+        $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+
+        $timet=Carbon::now()->subMinutes(10);
+          $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
+        $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
         return view('groupviews.members',$data);
     }
 
      public function invites($id)
     {
-      $userid = Auth::user()->id;
-        $data=[];
-         $data['users']=DB::SELECT('select * FROM users');
-        $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
-        $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
-        $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
-        $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
-        $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
+            $userid = Auth::user()->id;
+            $data=[];
+             $data['users']=DB::SELECT('select * FROM users');
+            $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
+            $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
+            $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
+            $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
+            $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
 
-$data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+            $data['withdraws']=DB::SELECT('select * FROM withdraws WHERE group_id =?',[$id]);
+            $timet=Carbon::now()->subMinutes(10);
+              $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
+            $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+            $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
         return view('groupviews.invites',$data);
     }
 
@@ -180,16 +198,90 @@ $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[
     public function deposits($id)
     {
       $userid = Auth::user()->id;
-        $data=[];
-         $data['users']=DB::SELECT('select * FROM users');
-        $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
-        $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
-        $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
-        $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
+            $data=[];
+             $data['users']=DB::SELECT('select * FROM users');
+            $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
+            $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
+            $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
+            $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
+            $data['withdraws']=DB::SELECT('select * FROM withdraws WHERE group_id =?',[$id]);
 
-         $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
 
-    $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+             $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
+
+              $timet=Carbon::now()->subMinutes(10);
+              $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
+
+            $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+            $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
         return view('groupviews.deposit',$data);
     }
+
+
+
+ public function withdraws($id)
+    {
+      $userid = Auth::user()->id;
+            $data=[];
+             $data['users']=DB::SELECT('select * FROM users');
+            $data['confirmed']=DB::SELECT('select * FROM invites WHERE confirmed =1 AND groupid=?',[$id]);
+            $data['invites']=DB::SELECT('select * FROM invites WHERE confirmed =0 AND groupid=?',[$id]);
+            $data['groups']=DB::SELECT('select * FROM groups WHERE id =?',[$id]);
+            $data['group_members']=DB::SELECT('select * FROM group_members WHERE group_id =?',[$id]);
+            $data['withdraws']=DB::SELECT('select * FROM withdraws WHERE group_id =?',[$id]);
+
+
+             $data['mygroup']=DB::SELECT('select * FROM group_members WHERE User_id =?',[$userid]);
+
+              $timet=Carbon::now()->subMinutes(10);
+              $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
+
+            $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+            $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
+        return view('groupviews.withdraws',$data);
+    }
+
+
+
+    public function withdraw(Request $request)
+    {
+        $groupid=Input::get('groupid');
+
+        $worti = groups::where('id',$groupid)->first();
+        $maxamount=$worti->worth;
+         
+        $worth=Input::get('worth');
+        $this->validate($request, [
+            'amount'=>'required|numeric|min:10|max:'.$maxamount,
+            'Description'=>'required',
+            
+
+            ]);
+        $userid = Auth::user()->id;
+        $amount=Input::get('amount');
+        $withdraws = new withdraws;
+
+            $withdraws->amount = Input::get('amount');
+            $withdraws->description = Input::get('Description');
+            $withdraws->user_id = $userid;
+            // $groups->penalty = Input::get('penalty');
+            $withdraws->group_id = Input::get('groupid');
+         
+
+            $withdraws->save();
+
+            
+            $newworth=$maxamount - $amount;
+            DB::table('groups')
+            ->where('id', $groupid)
+            ->update(['worth' => $newworth]);
+
+            return redirect()->back() ->with('status','Confirmed you have withdrawn Ksh '.$amount );
+
+    }
+
+
+
 }

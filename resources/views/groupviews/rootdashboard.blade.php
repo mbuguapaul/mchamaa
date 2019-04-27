@@ -84,11 +84,19 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
+        @foreach($groups as $groupw)
+            
+           
+            
+        
+          
+            <a class="collapse-item" href="withdraws/{{$id=$groupw->id}}">Withdraws</a>
+           
+        @endforeach
+          
+           <!--  <a class="collapse-item" href="utilities-border.html">Borders</a>
             <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a> -->
           </div>
         </div>
       </li>
@@ -226,6 +234,8 @@
                 @endforeach
                 @endif
                  @endforeach
+
+                 @foreach($logg as $loggs)
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
                     <div class="icon-circle bg-success">
@@ -233,10 +243,13 @@
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($loggs->created_at)->diffForHumans()}}</div>
+                    {{$loggs->amount}} has been deposited into this account by {{$loggs->name}}
                   </div>
                 </a>
+                @endforeach
+
+            @foreach($withh as $withhs)
                 <a class="dropdown-item d-flex align-items-center" href="#">
                   <div class="mr-3">
                     <div class="icon-circle bg-warning">
@@ -244,10 +257,12 @@
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
+                    <div class="small text-gray-500">{{Carbon\Carbon::parse($withhs->created_at)->diffForHumans()}}</div>
+                    {{$withhs->amount}} has been withdrawn for {{$withhs->description}}.
                   </div>
                 </a>
+
+                @endforeach
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
             </li>
@@ -393,7 +408,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Deposit-Withdraws)</div>
                       <?php $counting = 0; ?> 
                       @foreach($logs as $amt)
                       
@@ -402,6 +417,14 @@
                    
                     @endforeach
                     {{$counting}}
+                    -
+
+                    <?php $withdr = 0; ?> 
+                    @foreach($withdraws as $withdraw)
+                    <?php $withdr = $withdr+$withdraw->amount;?>
+                    @endforeach
+                    {{$withdr}}
+
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
@@ -417,8 +440,12 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total (Annual)</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                         @foreach($groups as $groupo)
+                      {{$groupo->worth}}
+                      @endforeach
+                      </div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -432,9 +459,9 @@
             @else
               <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target=".bs-example-modal-lg" style="color: #fff;"><i class="fas fa-user-plus fa-sm text-white-50"></i> Invite Member</a>
 
-               <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target=".bs-example-modal-lg" style="color: #fff;"><i class="fas fa-hand-holding-usd fa-hand-holding-usd text-white-50"></i> Withdraw</a>
+               <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target=".withdraw" style="color: #fff;"><i class="fas fa-hand-holding-usd fa-hand-holding-usd text-white-50"></i> Withdraw</a>
             
-
+<!-- /////////////// start modal -->
 
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog modal-lg">
@@ -511,6 +538,58 @@
   </div>
 </div>
 
+<!-- ///////////////////// -->
+
+
+
+<!-- /////////////// start modal withdrawals-->
+
+            <div class="modal fade bs-example-modal-lg withdraw" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content container">
+      <br>
+      <center><h4 style="color: #F1592D;">Add a withdraw record </h4></center>
+      <br>
+      <form class="form-horizontal" action="withdraw" method="post">
+        <!-- names -->
+        <div class="form-group row">
+    
+    <div class="col-sm-6">
+      <input type="number" min="10" class="form-control"  placeholder="Amount" required name="amount">
+    </div>
+    <div class="col-sm-6">
+      <input type="text" class="form-control"  placeholder="Short Description" name="Description" required>
+    </div>
+  </div>
+  <!-- end names -->
+
+ {{ csrf_field() }}
+
+  @foreach($groups as $groupw)
+  <input type="hidden" value="
+  
+  {{$groupw->id}}
+  
+  " name="groupid">
+
+<input type="hidden" value="
+  {{$groupw->worth}} " name="worth">
+  @endforeach
+ <button class="btn btn-success btn-icon-split pull-right" type="submit">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Withdraw</span>
+                  </button>
+      </form>
+      <i>NB: Upon adding a withdrawal record you remain liable to the expense.</i>
+      <br><br>
+    </div>
+  </div>
+</div>
+
+<!-- ///////////////////// -->
+
           </div>
 
 
@@ -525,7 +604,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Incomes (Deposits)</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> (Deposits- withdraws)</div>
                      
                      <?php $counting = 0; ?> 
                      <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -536,6 +615,12 @@
                    
                     @endforeach
                     {{$counting}}
+                    -
+                    <?php $withdr = 0; ?> 
+                    @foreach($withdraws as $withdraw)
+                    <?php $withdr = $withdr+$withdraw->amount;?>
+                    @endforeach
+                    {{$withdr}}
                      </div>
                     </div>
                     <div class="col-auto">
@@ -552,9 +637,13 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Earnings </div>
 
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        @foreach($groups as $groupo)
+                      {{$groupo->worth}}
+                      @endforeach
+                    </div>
 
                     </div>
                     <div class="col-auto">
