@@ -52,3 +52,7 @@ Route::get('gs/invites/{id}', 'GroupsController@invites');
 Route::get('gs/deposits/{id}', 'GroupsController@deposits');
 Route::get('gs/withdraws/{id}', 'GroupsController@withdraws');
 Route::post('gs/withdraw','GroupsController@withdraw');
+
+// chats
+Route::get('messages', 'ChatsController@fetchMessages');
+Route::post('messages', 'ChatsController@sendMessage');
