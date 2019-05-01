@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 use App\User;
 use App\withdraws;
 use DB;
+use App\payment_processing;
+
 use App\groups;
 use App\group_members;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use \Carbon\Carbon;
+use App\Charts\analysis;
 class GroupsController extends Controller
 {
     /**
@@ -27,6 +30,9 @@ class GroupsController extends Controller
     {
         return view('newgroup');
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -95,6 +101,20 @@ class GroupsController extends Controller
             return redirect ('home') ->with('status','Unknown group or you do not exist there');;
         }
         else{
+
+
+            $today = payment_processing::whereDate('created_at', today())->count();
+        $yesterday = payment_processing::whereDate('created_at', today()->subDays(1))->count();
+        $twodays = payment_processing::whereDate('created_at', today()->subDays(2))->count();
+        $threedays = payment_processing::whereDate('created_at', today()->subDays(3))->count();
+        $fourdays = payment_processing::whereDate('created_at', today()->subDays(4))->count();
+        $fivedays = payment_processing::whereDate('created_at', today()->subDays(5))->count();
+        $sixdays = payment_processing::whereDate('created_at', today()->subDays(6))->count();
+        $svendays = payment_processing::whereDate('created_at', today()->subDays(7))->count();
+
+        $chart = new analysis;
+        $chart->labels(['7 days ago', '6 days ago', '5 days ago','4 days ago','3 days ago','Yesterday','today']);
+        $chart->dataset('Deposits', 'line', collect([$svendays, $sixdays, $fivedays,$fourdays,$twodays,$yesterday,$today]));
            
         $data=[];
          $data['users']=DB::SELECT('select * FROM users');
@@ -118,7 +138,7 @@ $data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at
 
 $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
 // ->where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString())
-        return view ('groupviews.dashboard',$data);
+        return view ('groupviews.dashboard',['chart' => $chart],$data);
         }
     
 
@@ -290,6 +310,31 @@ $data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at
 
     }
 
+  public function analysis()
+    {
 
+
+
+        $today = payment_processing::whereDate('created_at', today())->count();
+        $yesterday = payment_processing::whereDate('created_at', today()->subDays(1))->count();
+        $twodays = payment_processing::whereDate('created_at', today()->subDays(2))->count();
+        $threedays = payment_processing::whereDate('created_at', today()->subDays(3))->count();
+        $fourdays = payment_processing::whereDate('created_at', today()->subDays(4))->count();
+        $fivedays = payment_processing::whereDate('created_at', today()->subDays(5))->count();
+        $sixdays = payment_processing::whereDate('created_at', today()->subDays(6))->count();
+        $svendays = payment_processing::whereDate('created_at', today()->subDays(7))->count();
+
+
+
+
+ $data=[];
+             $data['users']=DB::SELECT('select * FROM users');
+
+
+        $chart = new analysis;
+        $chart->labels(['Monday', 'Tuesday', 'Wednasday','Thursday','Friday','Saturday','Sunday']);
+        $chart->dataset('Deposits', 'line', collect([$svendays, $sixdays, $fivedays,$fourdays,$twodays,$yesterday,$today]));
+        return view('analysis',['chart' => $chart],$data);
+    }
 
 }

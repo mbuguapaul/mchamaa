@@ -53,3 +53,6 @@ Route::post('/gs/chat/newchat', 'ChatsController@newchat');
 
 Route::get('messages', 'ChatsController@fetchMessages');
 Route::post('messages', 'ChatsController@sendMessage');
+
+
+Route::get('/analysis', 'GroupsController@analysis');

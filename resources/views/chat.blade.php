@@ -136,11 +136,11 @@
       </li>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+    <!--   <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Reports</span></a>
-      </li>
+      </li> -->
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">

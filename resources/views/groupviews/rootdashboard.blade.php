@@ -132,11 +132,11 @@
       </li>
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+     <!--  <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Reports</span></a>
-      </li>
+      </li> -->
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
@@ -333,10 +333,10 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
-                <a class="dropdown-item" href="#">
+                <!-- <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Settings
-                </a>
+                </a> -->
                 <a class="dropdown-item" href="/home">
                   <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                  My Groups
@@ -753,7 +753,12 @@
       </div>
     </div>
   </div>
-
+  <script src="https://unpkg.com/vue"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+            });
+        </script>
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
