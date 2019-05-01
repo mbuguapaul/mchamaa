@@ -8,8 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>M-chamaa</title>
+@foreach($groups as $groupt)
+  <title>M-chamaa| {{$groupt->group_name}}</title>
+  @endforeach
   <!-- Custom fonts for this template-->
   <link href="{{asset('css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet" type="text/css">
@@ -324,7 +325,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" src="{{asset('img/avatar/'.Auth::user()->avatar)}}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -80,7 +80,7 @@
       <div class="profile-sidebar">
         <!-- SIDEBAR USERPIC -->
         <div class="profile-userpic">
-          <img src="https://gravatar.com/avatar/31b64e4876d603ce78e04102c67d6144?s=80&d=https://codepen.io/assets/avatars/user-avatar-80x80-bdcd44a3bfb9a5fd01eb8b86f9e033fa1a9897c3a15b33adfc2649a002dab1b6.png" class="img-responsive" alt="">
+          <img src="{{asset('img/avatar/'.Auth::user()->avatar)}}" class="img-responsive" alt="">
         </div>
         <!-- END SIDEBAR USERPIC -->
         <!-- SIDEBAR USER TITLE -->
@@ -88,16 +88,27 @@
           <div class="profile-usertitle-name">
             {{ Auth::user()->name }} &nbsp {{ Auth::user()->sname }}
           </div>
-          <div class="profile-usertitle-job">
-            user
-          </div>
+          
         </div>
         <!-- END SIDEBAR USER TITLE -->
+
+
+        <form method="post" action="updateimg" enctype="multipart/form-data">
+      <div class="form-group">
+                               <label for="exampleInputFile">Profile</label>
+                            <input type="file"  name="prfimage" id="file" onchange="return fileValidation()">
+                            <!-- <div id="imagePreview"></div> -->
+                            <div id="red" style="color: red;"></div>
+                            </div>
+                            <input type="hidden" name="_token"value="{{csrf_token()}}"/>
+
+                            <input type="submit" class="mybtn btn" value="Update profile" name="">
+                          </form>
+
+
+
         <!-- SIDEBAR BUTTONS -->
-        <div class="profile-userbuttons">
-          <button type="button" class="btn btn-success btn-sm">Follow</button>
-          <button type="button" class="btn btn-danger btn-sm">Message</button>
-        </div>
+     
         <!-- END SIDEBAR BUTTONS -->
         <!-- SIDEBAR MENU -->
         <div class="profile-usermenu">
