@@ -209,7 +209,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter">{{count($confirmed)}}</span>
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -279,7 +279,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
                 <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
+                <span class="badge badge-danger badge-counter">{{count($lchats)}}</span>
               </a>
               <!-- Dropdown - Messages -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
@@ -298,7 +298,13 @@
                     <div class="text-truncate">{{$chats->message}}</div>
                     @foreach($users as $we)
                     @if($chats->user_id== $we->id)
-                    <div class="small text-gray-500">{{$we->name}} {{$we->sname}} {{Carbon\Carbon::parse($chats->created_at)->diffForHumans()}}</div>
+                    <div class="small text-gray-500">
+                      @if($we->id==Auth::user()->id)
+                      you
+                      @else
+                      {{$we->name}} {{$we->sname}} 
+                      @endif
+                      {{Carbon\Carbon::parse($chats->created_at)->diffForHumans()}}</div>
                     @endif
                     
                     @endforeach
