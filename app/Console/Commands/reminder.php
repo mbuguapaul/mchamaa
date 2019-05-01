@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-
+use App\chat;
 use Illuminate\Console\Command;
 use Mail;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ class reminder extends Command
      *
      * @var string
      */
-    protected $signature = 'remind:email';
+    protected $signature = 'remind:update';
 
     /**
      * The console command description.
@@ -39,6 +39,13 @@ class reminder extends Command
      */
     public function handle()
     {
-       return "success";
+       $chat = new chat;
+
+            $chat->group_id = "1";
+            $chat->user_id = "1";
+            $chat->message = "you are so damn";
+           
+            $chat->save();
+
     }
 }
