@@ -26,7 +26,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style=" position: fixed; z-index: 1">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -35,7 +35,7 @@
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider my-0" >
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
@@ -67,7 +67,7 @@
             
         
           
-            <a class="collapse-item" href="deposits/{{$id=$groupd->id}}">Deposits</a>
+            <a class="collapse-item" href="/gs/deposits/{{$id=$groupd->id}}">Deposits</a>
            
         @endforeach
             
@@ -90,7 +90,7 @@
             
         
           
-            <a class="collapse-item" href="withdraws/{{$id=$groupw->id}}">Withdraws</a>
+            <a class="collapse-item" href="/gs/withdraws/{{$id=$groupw->id}}">Withdraws</a>
            
         @endforeach
           
@@ -117,12 +117,12 @@
            @foreach($groups as $groupm)
             
            
-            <a class="collapse-item" href="members/{{$id=$groupm->id}}">Members</a>
+            <a class="collapse-item" href="/gs/members/{{$id=$groupm->id}}">Members</a>
              @foreach($mygroup as $mygroupm)
             @if($mygroupm->user_level==1)
         
             @else
-            <a class="collapse-item" href="invites/{{$id=$mygroupm->id}}">Invites</a>
+            <a class="collapse-item" href="/gs/invites/{{$id=$mygroupm->id}}">Invites</a>
             @endif
             @endforeach
         @endforeach
@@ -139,7 +139,9 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        @foreach($groups as $groupc)
+        <a class="nav-link" href="/gs/chat/{{$id=$groupc->id}}">
+          @endforeach
           <i class="fas fa-fw fa-comments"></i>
           <span>chats</span></a>
       </li>
@@ -160,6 +162,11 @@
 
       <!-- Main Content -->
       <div id="content">
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-md-10">
+    
+ 
 
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -701,6 +708,8 @@
 
  @yield('content')
 
+
+
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
@@ -710,6 +719,17 @@
         </div>
       </footer>
       <!-- End of Footer -->
+
+       </div>
+
+</div>
+<!-- end row -->
+
+
+
+
+
+
 
     </div>
     <!-- End of Content Wrapper -->

@@ -1,15 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +24,6 @@ Route::post('nwgroup', 'GroupsController@store');
 Route::post('mnet/sms/gateway','GatewayAPI@store');
 
 
-
 Route::get('/allgroups', 'HomeController@allgroups');
 
 //invitations////////////////////////////////////////////////////////////////////
@@ -54,5 +44,8 @@ Route::get('gs/withdraws/{id}', 'GroupsController@withdraws');
 Route::post('gs/withdraw','GroupsController@withdraw');
 
 // chats
+
+Route::get('gs/chat/{id}', 'ChatsController@chat');
+
 Route::get('messages', 'ChatsController@fetchMessages');
 Route::post('messages', 'ChatsController@sendMessage');
