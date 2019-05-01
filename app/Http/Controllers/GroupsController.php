@@ -112,6 +112,10 @@ class GroupsController extends Controller
           $timet=Carbon::now()->subMinutes(10);
           $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
 
+
+$data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
+
 $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
 // ->where('created_at', '<', Carbon::now()->subMinutes(5)->toDateTimeString())
         return view ('groupviews.dashboard',$data);
@@ -167,6 +171,7 @@ $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created
         $timet=Carbon::now()->subMinutes(10);
           $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
         $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+        $data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at > ?',[$id,$timet]);
         return view('groupviews.members',$data);
     }
 
@@ -185,6 +190,9 @@ $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created
             $timet=Carbon::now()->subMinutes(10);
               $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
             $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
+            $data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at > ?',[$id,$timet]);
+
             $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
         return view('groupviews.invites',$data);
     }
@@ -211,7 +219,7 @@ $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created
 
               $timet=Carbon::now()->subMinutes(10);
               $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
-
+$data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at > ?',[$id,$timet]);
 
             $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
             $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);
@@ -236,7 +244,7 @@ $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created
 
               $timet=Carbon::now()->subMinutes(10);
               $data['logg']=DB::SELECT('select * FROM payment_processings WHERE group_id =? AND created_at > ?',[$id,$timet]);
-
+$data['lchats']=DB::SELECT('select * FROM chats WHERE group_id =? AND created_at > ?',[$id,$timet]);
 
             $data['withh']=DB::SELECT('select * FROM withdraws WHERE group_id =? AND created_at > ?',[$id,$timet]);
             $data['logs']=DB::SELECT('select * FROM payment_processings WHERE group_id =?',[$id]);

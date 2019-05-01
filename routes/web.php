@@ -46,7 +46,7 @@ Route::post('gs/withdraw','GroupsController@withdraw');
 // chats
 
 Route::get('gs/chat/{id}', 'ChatsController@chat');
-Route::post('newchat', 'ChatsController@newchat');
+Route::post('/gs/chat/newchat', 'ChatsController@newchat');
 
 Route::get('messages', 'ChatsController@fetchMessages');
 Route::post('messages', 'ChatsController@sendMessage');
