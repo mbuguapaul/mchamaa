@@ -30,7 +30,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff;">
-                        e-chamaa
+                        M-chamaa
                     </a>
                 </div>
 
@@ -74,6 +74,22 @@
 
         </nav>
 
+        
+    @if(Session::has('status'))
+ 
+      <div class="col-md-12">
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <center>{{Session::get('status')}}</center>
+
+
+        </div>
+      </div>
+    
+@endif
+
+
+
   <div class="container">
     <div class="row profile">
     <div class="col-md-3">
@@ -95,14 +111,14 @@
 
         <form method="post" action="updateimg" enctype="multipart/form-data">
       <div class="form-group">
-                               <label for="exampleInputFile">Profile</label>
+                               
                             <input type="file"  name="prfimage" id="file" onchange="return fileValidation()">
                             <!-- <div id="imagePreview"></div> -->
                             <div id="red" style="color: red;"></div>
                             </div>
                             <input type="hidden" name="_token"value="{{csrf_token()}}"/>
 
-                            <input type="submit" class="mybtn btn" value="Update profile" name="">
+                            <input type="submit" class="mybtn btn" style="background: #01A2A6; color: #fff; border-radius: 7px;" value="Update profile" name="">
                           </form>
 
 
@@ -111,7 +127,7 @@
      
         <!-- END SIDEBAR BUTTONS -->
         <!-- SIDEBAR MENU -->
-        <div class="profile-usermenu">
+       <!--  <div class="profile-usermenu">
           <ul class="nav">
             <li class="active">
               <a href="#">
@@ -134,30 +150,10 @@
               Help </a>
             </li>
           </ul>
-        </div>
+        </div> -->
         <!-- END MENU -->
          
-           <div class="portlet light bordered">
-                                                <!-- STAT -->
-                                                <div class="row list-separated profile-stat">
-                                                    <div class="col-md-4 col-sm-4 col-xs-6">
-                                                        <div class="uppercase profile-stat-title"> 37 </div>
-                                                        <div class="uppercase profile-stat-text"> Projects </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4 col-xs-6">
-                                                        <div class="uppercase profile-stat-title"> 51 </div>
-                                                        <div class="uppercase profile-stat-text"> Tasks </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4 col-xs-6">
-                                                        <div class="uppercase profile-stat-title"> 61 </div>
-                                                        <div class="uppercase profile-stat-text"> Uploads </div>
-                                                    </div>
-                                                </div>
-                                                <!-- END STAT -->
-                                                 <div>
-                                                    <h4 class="profile-desc-title">About Jason Davis</h4>
-                                                    <span class="profile-desc-text"> Lorem ipsum dolor sit amet diam nonummy nibh dolore. </span>
-                                                    </div></div>                   
+                       
                                            
         
         
@@ -175,6 +171,49 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+            function fileValidation(){
+    var fileInput = document.getElementById('file');
+    var filePath = fileInput.value;
+     var FileSize = file.files[0].size / 1024 / 1024; // in MB
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.JPG)$/i;
+
+    if(!allowedExtensions.exec(filePath)){
+        // alert('Please upload file having extensions .jpeg/.jpg/.png/.gif/.JPG only.');
+        document.getElementById('red').innerHTML = 'invalid file format. Please choose .jpeg, .jpg, .png';
+
+fileInput.value = '';
+        return false;
+
+
+    }else{
+        //Image preview
+
+        if (FileSize > 3) {
+             document.getElementById('red').innerHTML = 'The file is too big. Exceeds 3MB';
+           // $(file).val(''); //for clearing with Jquery
+                
+        fileInput.value = '';
+        return false;
+        } else {
+
+
+             if (fileInput.files && fileInput.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('imagePreview').innerHTML = '<img src="'+e.target.result+'"/>';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+
+        }
+       
+
+    }
+}
+        </script>
 </body>
 
 </html>

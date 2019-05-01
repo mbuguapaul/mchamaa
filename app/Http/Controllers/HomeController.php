@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Image;
+use Illuminate\Support\Facades\Input;
 use DB;
 class HomeController extends Controller
 {
@@ -69,6 +71,43 @@ class HomeController extends Controller
 
 
         return view('allgroups',$data);
+    }
+
+
+    public function updateimg(Request $request)
+    {
+         if($request->hasFile('prfimage')){
+
+            $post_image=Input::file('prfimage');
+
+            $filename=time().'.'.$post_image->getClientOriginalExtension();
+        Image::make($post_image)->resize(500,500)->save(public_path('/img/avatar/'.$filename));
+
+        $userid=Auth::User()->id;
+        
+        DB::update('update users set avatar = ? where id = ?',[$filename,$userid]);
+
+         }
+        return redirect()->back()->with('status',' successfully updated profile picture');
+    }
+
+
+public function updateuser(Request $request)
+    {
+            $name=Input::get('name');
+            $sname=Input::get('sname');
+
+
+            // $name=Input::file('prfimage');
+            $userid=Auth::User()->id;
+
+             DB::table('users')
+            ->where('id', $userid)
+            ->update(['name' => $name, 'sname'=>$sname]);
+
+
+         
+        return redirect()->back()->with('status',' successfully updated profile ');
     }
 
 }

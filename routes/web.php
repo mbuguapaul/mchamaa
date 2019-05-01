@@ -9,6 +9,9 @@ Route::get('/', function () {
 Auth::routes();
 Auth::routes(['verify' => true]);
 
+Route::post('updateimg','HomeController@updateimg');
+Route::post('updateuser','HomeController@updateuser');
+
 
 Route::get('/newgroup', 'GroupsController@newgroup');
 Route::get('gs/{id}', 'GroupsController@groupselect');
